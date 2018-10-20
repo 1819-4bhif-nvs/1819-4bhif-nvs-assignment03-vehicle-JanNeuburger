@@ -29,13 +29,31 @@ public class VehicleTest {
             System.err.println("Verbindung zur Datenbank nicht möglich\n" + e.getMessage() + "\n");
             System.exit(1);
         }
+
+        try {
+            Statement stmt = conn.createStatement();
+            String sql = "CREATE TABLE VEHICLE(" +
+                    "id INT CONSTRAINT vehicle_pk PRIMARY KEY," +
+                    "brand VARCHAR(255) NOT NULL," +
+                    "type VARCHAR(255) NOT NULL );";
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
     @AfterClass
     public static void teardownJdbc(){
         try {
-            if(conn != null && !conn.isClosed()){
+            conn.createStatement().execute("DROP TABLE VEHICLE");
+            System.out.println("Tabelle VEHICLE gelöscht!");
+        } catch (SQLException e) {
+            System.out.println("Tabelle VEHICLE kann nicht gelöscht werden:\n"+e.getMessage());
+        }
+
+        try {
+            if(conn!=null && !conn.isClosed()){
                 conn.close();
-                System.out.println("Good bye!");
+                System.out.println("Goodbye!");
             }
         } catch (SQLException e) {
             e.printStackTrace();
