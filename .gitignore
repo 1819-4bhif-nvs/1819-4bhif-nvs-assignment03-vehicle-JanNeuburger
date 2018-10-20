@@ -156,5 +156,13 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+### Database ###
+*.accdb
+*.db
+*.dbf
+*.mdb
+*.pdb
+*.sql
+*.sqlite3
 
 # End of https://www.gitignore.io/api/java,maven,windows,intellij
